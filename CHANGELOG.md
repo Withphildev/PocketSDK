@@ -2,6 +2,28 @@
 
 All notable changes to PocketSDK are documented here.
 
+## PocketCheck 0.2.0 — 2026-10-23
+
+### Added
+
+- CPU model, revision, core-count, and clock reporting
+- Heap and PSRAM capacity reporting
+- Flash information and a temporary NVS write/read/remove test
+- Wi-Fi radio scan with network count, strongest signal, and channel
+- Bluetooth Low Energy scan with device count and strongest signal
+- Summary and detail pages with per-test reruns
+
+### Privacy and safety
+
+- Wi-Fi scans without connecting or saving credentials
+- BLE scans without pairing
+- The storage probe is removed immediately after the round-trip test
+- Radios are disabled after their scans complete
+
+### Validated
+
+- The complete suite and navigation controls passed on a physical M5StickS3
+
 ## [0.1.0] — 2026-10-23
 
 ### Added

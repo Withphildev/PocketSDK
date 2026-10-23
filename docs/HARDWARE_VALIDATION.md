@@ -40,3 +40,23 @@ run on the same physical M5Stack M5StickS3.
 
 The owner reported that everything worked. PocketClock required no PocketSDK
 source changes, validating the v0.1 API as a reusable application foundation.
+
+## 2026-10-23 — PocketCheck v0.2.0
+
+The `PocketCheck-v0.2.0-factory.bin` image was flashed at address `0x0000` and
+run on a physical M5Stack M5StickS3.
+
+| Check | Result |
+|---|---|
+| Factory image flashes and boots | Pass |
+| CPU model, revision, core count, and clock test | Pass |
+| Heap and PSRAM test | Pass |
+| Flash information and temporary NVS write/read/remove test | Pass |
+| Wi-Fi radio scan without connection or saved credentials | Pass |
+| Bluetooth Low Energy scan without pairing | Pass |
+| Face button cycles through detailed result pages | Pass |
+| M5 button reruns the selected test and full suite | Pass |
+
+The owner reported that all tests worked. This validates PocketCheck v0.2.0 on
+physical M5StickS3 hardware. It does not add automatic radio behavior to the
+PocketSDK core; Wi-Fi and BLE remain application-controlled features.
