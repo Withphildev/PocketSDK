@@ -18,6 +18,7 @@ It is not a game engine or an attempt to hide M5Unified.
 - M5StickS3 capability profile
 - Namespaced Preferences storage helper
 - Hardware diagnostic example
+- PocketClock example
 
 Networking, WebSockets, WebUI hosting, game systems, animation, and asset
 pipelines remain application-level concerns until a second proven use case
@@ -73,14 +74,16 @@ lib_deps =
 
 ## Status
 
-The v0.1 StickS3 foundation passed its first physical-hardware validation on
-2026-10-23. Display initialization, orientation, both buttons, press and hold
-events, and battery reporting were verified on an M5StickS3.
+The v0.1 StickS3 foundation and both bundled examples passed physical-hardware
+validation on 2026-10-23. Display initialization, orientation, both buttons,
+press and hold events, brightness control, and battery reporting were verified
+on an M5StickS3.
 
 PocketClock is the second independent consumer. It demonstrates that an
-application can reuse PocketSDK without requiring SDK source changes. No
-existing Pocket application has been migrated; the current projects remain
-reference implementations and regression targets.
+application can reuse PocketSDK without requiring SDK source changes. See the
+[hardware validation record](docs/HARDWARE_VALIDATION.md) for the tested
+behaviors. No existing Pocket application has been migrated; the current
+projects remain reference implementations and regression targets.
 
 ## License
 

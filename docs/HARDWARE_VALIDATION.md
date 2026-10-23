@@ -23,3 +23,20 @@ hardware profile and its initial input, display, and battery behavior.
 Compilation was also verified locally and by GitHub Actions. Physical
 validation remains required after changes to the device profile, button
 handling, initialization sequence, or battery API.
+
+## 2026-10-23 — PocketClock independent consumer
+
+The `PocketClock` factory image was compiled from commit
+`e5278e51dea49ce110391e5d6025c48a655bde12`, flashed at address `0x0000`, and
+run on the same physical M5Stack M5StickS3.
+
+| Check | Result |
+|---|---|
+| Factory image flashes and boots | Pass |
+| PocketClock display renders correctly | Pass |
+| Face button toggles display brightness | Pass |
+| M5 button toggles seconds display | Pass |
+| Battery level is displayed | Pass |
+
+The owner reported that everything worked. PocketClock required no PocketSDK
+source changes, validating the v0.1 API as a reusable application foundation.

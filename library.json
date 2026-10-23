@@ -1,6 +1,6 @@
 {
   "name": "PocketSDK",
-  "version": "0.1.0-dev",
+  "version": "0.1.0",
   "description": "A small reusable M5StickS3 foundation for the Withphildev Pocket family",
   "keywords": ["m5stack", "m5sticks3", "esp32-s3", "pocket"],
   "repository": {
