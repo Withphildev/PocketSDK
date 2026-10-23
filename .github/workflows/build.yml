@@ -16,3 +16,5 @@ jobs:
         run: python -m pip install --upgrade platformio
       - name: Build hardware diagnostic
         run: pio run -d examples/HardwareDiagnostic
+      - name: Build PocketClock reuse example
+        run: pio run -d examples/PocketClock

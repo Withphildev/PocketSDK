@@ -35,6 +35,7 @@ Run:
 
 ```sh
 pio run -d examples/HardwareDiagnostic
+pio run -d examples/PocketClock
 ```
 
 Hardware-dependent behavior must also be checked on an M5StickS3. A successful

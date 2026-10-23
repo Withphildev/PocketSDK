@@ -42,8 +42,8 @@ void loop() {
 }
 ```
 
-See [`examples/HardwareDiagnostic`](examples/HardwareDiagnostic) for a complete
-example.
+See [`examples/HardwareDiagnostic`](examples/HardwareDiagnostic) and
+[`examples/PocketClock`](examples/PocketClock) for complete examples.
 
 ## PlatformIO dependency
 
@@ -73,9 +73,14 @@ lib_deps =
 
 ## Status
 
-PocketSDK is in its foundation stage. No existing Pocket application has been
-migrated. The current projects remain reference implementations and regression
-targets.
+The v0.1 StickS3 foundation passed its first physical-hardware validation on
+2026-10-23. Display initialization, orientation, both buttons, press and hold
+events, and battery reporting were verified on an M5StickS3.
+
+PocketClock is the second independent consumer. It demonstrates that an
+application can reuse PocketSDK without requiring SDK source changes. No
+existing Pocket application has been migrated; the current projects remain
+reference implementations and regression targets.
 
 ## License
 
