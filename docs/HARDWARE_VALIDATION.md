@@ -60,3 +60,21 @@ run on a physical M5Stack M5StickS3.
 The owner reported that all tests worked. This validates PocketCheck v0.2.0 on
 physical M5StickS3 hardware. It does not add automatic radio behavior to the
 PocketSDK core; Wi-Fi and BLE remain application-controlled features.
+
+## 2026-10-23 — PocketCheck v0.3.0 speaker test
+
+The `PocketCheck-v0.3.0-factory.bin` image was flashed at address `0x0000` and
+run on a physical M5Stack M5StickS3.
+
+| Check | Result |
+|---|---|
+| Existing v0.2 automatic diagnostic suite | Pass |
+| Speaker test remains silent until explicitly selected | Pass |
+| 880 Hz test tone is audible | Pass |
+| 1320 Hz test tone is audible | Pass |
+| Face button records manual PASS confirmation | Pass |
+| Speaker result appears in the summary | Pass |
+
+The owner reported that the speaker test passed. Because audio output cannot be
+verified by the microcontroller itself, PocketCheck records a human-confirmed
+result after playing the two tones.

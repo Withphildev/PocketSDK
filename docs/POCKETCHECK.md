@@ -6,9 +6,11 @@ PocketCheck is the ready-to-flash M5StickS3 diagnostic powered by PocketSDK.
 
 - **Face:** move to the next result page
 - **M5 on a detail page:** rerun that diagnostic
-- **M5 on the summary page:** rerun the complete suite
+- **M5 on the summary page:** rerun the automatic suite
+- **M5 on the Speaker page:** play two test tones
+- **Face/M5 after the tones:** record PASS/FAIL respectively
 
-## v0.2.0 diagnostics
+## v0.3.0 diagnostics
 
 | Diagnostic | What a pass means |
 |---|---|
@@ -17,10 +19,15 @@ PocketCheck is the ready-to-flash M5StickS3 diagnostic powered by PocketSDK.
 | Storage | Flash information is available and a temporary NVS value can be written, read back, and removed |
 | Wi-Fi | A blocking station-mode scan completes without an error |
 | Bluetooth | The NimBLE radio stack initializes and a BLE scan cycle completes |
+| Speaker | The user confirms hearing both the 880 Hz and 1320 Hz test tones |
 
 A radio scan can pass with zero nearby devices. The pass indicates that the
 scan completed; the device count indicates whether any advertisements were
 heard in the current environment.
+
+The speaker test is intentionally manual and is excluded from startup and
+**run all**. PocketCheck cannot measure whether sound left the speaker, so it
+asks the user to confirm the audible result.
 
 ## Privacy behavior
 

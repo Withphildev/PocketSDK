@@ -2,6 +2,26 @@
 
 All notable changes to PocketSDK are documented here.
 
+## PocketCheck 0.3.0 — 2026-10-23
+
+### Added
+
+- Manual internal-speaker diagnostic using 880 Hz and 1320 Hz tones
+- On-device PASS or FAIL confirmation after tone playback
+- Speaker status on the diagnostic summary
+
+### Behavior
+
+- The speaker test never runs automatically at startup
+- Audio plays only after the user opens the Speaker page and presses M5
+- A human confirmation is required because firmware cannot determine whether
+  the sound was physically audible
+
+### Validated
+
+- Both tones, confirmation controls, and summary status passed on a physical
+  M5StickS3
+
 ## PocketCheck 0.2.0 — 2026-10-23
 
 ### Added

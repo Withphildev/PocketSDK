@@ -49,14 +49,15 @@ See [`examples/HardwareDiagnostic`](examples/HardwareDiagnostic) and
 ## PocketCheck
 
 The hardware diagnostic example is published as **PocketCheck** for the
-M5StickS3. PocketCheck v0.2.0 tests CPU information, RAM and PSRAM, flash and a
-temporary NVS write/read cycle, Wi-Fi scanning, and Bluetooth Low Energy
-scanning. Wi-Fi does not connect or save credentials, BLE does not pair, and
-the temporary storage value is removed after the test.
+M5StickS3. PocketCheck v0.3.0 tests CPU information, RAM and PSRAM, flash and a
+temporary NVS write/read cycle, Wi-Fi scanning, Bluetooth Low Energy scanning,
+and the internal speaker. Wi-Fi does not connect or save credentials, BLE does
+not pair, and the temporary storage value is removed after the test.
 
 Use the Face button to move through detailed result pages. Use the M5 button to
-retest the current page, or to rerun the complete suite from the summary page.
-See [`docs/POCKETCHECK.md`](docs/POCKETCHECK.md) for test semantics.
+retest the current page, or to rerun the automatic suite from the summary page.
+The speaker test runs only when selected and requires human confirmation. See
+[`docs/POCKETCHECK.md`](docs/POCKETCHECK.md) for test semantics.
 
 ## PlatformIO dependency
 
@@ -87,8 +88,9 @@ lib_deps =
 ## Status
 
 The v0.1 StickS3 foundation and both bundled examples passed physical-hardware
-validation on 2026-10-23. PocketCheck v0.2.0 also passed its CPU, RAM/PSRAM,
-storage, Wi-Fi, and BLE diagnostic suite on physical M5StickS3 hardware.
+validation on 2026-10-23. PocketCheck v0.3.0 also passed its CPU, RAM/PSRAM,
+storage, Wi-Fi, BLE, and manual speaker diagnostics on physical M5StickS3
+hardware.
 
 PocketClock is the second independent consumer. It demonstrates that an
 application can reuse PocketSDK without requiring SDK source changes. See the

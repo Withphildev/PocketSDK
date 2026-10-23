@@ -3,11 +3,20 @@
 #include <WiFi.h>
 
 namespace {
-constexpr char kVersion[] = "0.2.0";
+constexpr char kVersion[] = "0.3.0";
 constexpr uint32_t kBleScanMs = 4000;
 
 enum class TestStatus : uint8_t { Pending, Running, Pass, Fail };
-enum class Page : uint8_t { Summary, Cpu, Ram, Storage, Wifi, Bluetooth, Count };
+enum class Page : uint8_t {
+    Summary,
+    Cpu,
+    Ram,
+    Storage,
+    Wifi,
+    Bluetooth,
+    Speaker,
+    Count
+};
 
 struct DiagnosticResults {
     TestStatus cpu = TestStatus::Pending;
@@ -15,6 +24,7 @@ struct DiagnosticResults {
     TestStatus storage = TestStatus::Pending;
     TestStatus wifi = TestStatus::Pending;
     TestStatus bluetooth = TestStatus::Pending;
+    TestStatus speaker = TestStatus::Pending;
 
     String chipModel;
     uint8_t chipRevision = 0;
@@ -40,6 +50,7 @@ struct DiagnosticResults {
 
 DiagnosticResults results;
 Page page = Page::Summary;
+bool speakerAwaitingConfirmation = false;
 
 uint16_t statusColor(TestStatus status) {
     switch (status) {
@@ -85,8 +96,10 @@ void drawFooter() {
     display.setTextColor(TFT_LIGHTGREY, TFT_BLACK);
     display.drawString("Face: next", 5, 123);
     display.setTextDatum(top_right);
-    display.drawString(page == Page::Summary ? "M5: run all" : "M5: retest",
-                       235, 123);
+    const char *action = page == Page::Summary
+                             ? "M5: run all"
+                             : (page == Page::Speaker ? "M5: play" : "M5: retest");
+    display.drawString(action, 235, 123);
     display.setTextDatum(top_left);
 }
 
@@ -114,11 +127,12 @@ void drawSummaryRow(int y, const char *label, TestStatus status) {
 void drawSummary() {
     drawHeader("Diagnostics");
     Pocket.display().setTextSize(1);
-    drawSummaryRow(48, "CPU", results.cpu);
-    drawSummaryRow(61, "RAM / PSRAM", results.ram);
-    drawSummaryRow(74, "Storage", results.storage);
-    drawSummaryRow(87, "Wi-Fi scan", results.wifi);
-    drawSummaryRow(100, "Bluetooth scan", results.bluetooth);
+    drawSummaryRow(42, "CPU", results.cpu);
+    drawSummaryRow(54, "RAM / PSRAM", results.ram);
+    drawSummaryRow(66, "Storage", results.storage);
+    drawSummaryRow(78, "Wi-Fi scan", results.wifi);
+    drawSummaryRow(90, "Bluetooth scan", results.bluetooth);
+    drawSummaryRow(102, "Speaker (manual)", results.speaker);
     drawFooter();
 }
 
@@ -198,6 +212,28 @@ void drawBluetooth() {
     drawFooter();
 }
 
+void drawSpeaker() {
+    drawHeader("Speaker");
+    drawStatus(results.speaker);
+    drawResultLine(49, "Test", "two tones");
+    drawResultLine(64, "Frequencies", "880 + 1320 Hz");
+    drawResultLine(79, "Volume", "moderate");
+    drawResultLine(94, "Start", "press M5");
+    drawFooter();
+}
+
+void drawSpeakerPrompt() {
+    drawHeader("Speaker");
+    auto &display = Pocket.display();
+    display.setTextSize(1);
+    display.setTextColor(TFT_WHITE, TFT_BLACK);
+    display.drawString("Did you hear two tones?", 12, 55);
+    display.setTextColor(TFT_GREEN, TFT_BLACK);
+    display.drawString("Face: PASS", 12, 78);
+    display.setTextColor(TFT_RED, TFT_BLACK);
+    display.drawString("M5: FAIL", 150, 78);
+}
+
 void drawPage() {
     switch (page) {
         case Page::Summary: drawSummary(); break;
@@ -206,6 +242,7 @@ void drawPage() {
         case Page::Storage: drawStorage(); break;
         case Page::Wifi: drawWifi(); break;
         case Page::Bluetooth: drawBluetooth(); break;
+        case Page::Speaker: drawSpeaker(); break;
         default: page = Page::Summary; drawSummary(); break;
     }
 }
@@ -315,6 +352,27 @@ void testBluetooth() {
     NimBLEDevice::deinit(true);
 }
 
+void testSpeaker() {
+    results.speaker = TestStatus::Running;
+    drawProgress("speaker");
+    M5.Speaker.setVolume(160);
+    const bool firstTone = M5.Speaker.tone(880.0f, 250);
+    delay(325);
+    const bool secondTone = M5.Speaker.tone(1320.0f, 250);
+    delay(325);
+    M5.Speaker.stop();
+
+    if (!firstTone && !secondTone) {
+        results.speaker = TestStatus::Fail;
+        speakerAwaitingConfirmation = false;
+        drawSpeaker();
+        return;
+    }
+
+    speakerAwaitingConfirmation = true;
+    drawSpeakerPrompt();
+}
+
 void runAll() {
     testCpu();
     testRam();
@@ -331,6 +389,7 @@ void runCurrentPage() {
         case Page::Storage: testStorage(); break;
         case Page::Wifi: testWifi(); break;
         case Page::Bluetooth: testBluetooth(); break;
+        case Page::Speaker: testSpeaker(); return;
         default: break;
     }
     drawPage();
@@ -340,7 +399,7 @@ void runCurrentPage() {
 void setup() {
     pocketsdk::Config config;
     config.internalMicrophone = false;
-    config.internalSpeaker = false;
+    config.internalSpeaker = true;
     Pocket.begin(config);
     runAll();
     drawSummary();
@@ -348,6 +407,20 @@ void setup() {
 
 void loop() {
     Pocket.update();
+
+    if (speakerAwaitingConfirmation) {
+        if (Pocket.buttons().pressed(pocketsdk::Button::Face)) {
+            results.speaker = TestStatus::Pass;
+            speakerAwaitingConfirmation = false;
+            drawSpeaker();
+        } else if (Pocket.buttons().pressed(pocketsdk::Button::M5)) {
+            results.speaker = TestStatus::Fail;
+            speakerAwaitingConfirmation = false;
+            drawSpeaker();
+        }
+        delay(2);
+        return;
+    }
 
     if (Pocket.buttons().pressed(pocketsdk::Button::Face)) {
         page = static_cast<Page>((static_cast<uint8_t>(page) + 1U) %
