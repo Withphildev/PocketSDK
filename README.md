@@ -5,7 +5,8 @@ M5Stack applications.
 
 The first release targets the **M5StickS3 only**. Its purpose is to centralize
 the hardware setup and small pieces of device behavior that have already been
-proven across PocketLab, PocketBoy, PocketPal, PocketQuest Mini, and PocketDice.
+proven across PocketLab, PocketBoy, PocketPal, PocketQuest Mini, PocketDice,
+and PocketBuddy.
 It is not a game engine or an attempt to hide M5Unified.
 
 ## PocketSDK v0.1 scope
@@ -23,6 +24,11 @@ It is not a game engine or an attempt to hide M5Unified.
 Networking, WebSockets, WebUI hosting, game systems, animation, and asset
 pipelines remain application-level concerns until a second proven use case
 shows that they belong in the SDK.
+
+PocketBuddy is the first connected voice-client consumer. It intentionally
+keeps Wi-Fi credentials, HTTP, recording policy, the Dark Tower protocol, and
+its face UI in the application while reusing PocketSDK initialization, display,
+battery, and logical button behavior. See [`docs/POCKETBUDDY.md`](docs/POCKETBUDDY.md).
 
 ## Quick start
 
@@ -92,8 +98,9 @@ validation on 2026-10-23. PocketCheck v0.3.0 also passed its CPU, RAM/PSRAM,
 storage, Wi-Fi, BLE, and manual speaker diagnostics on physical M5StickS3
 hardware.
 
-PocketClock is the second independent consumer. It demonstrates that an
-application can reuse PocketSDK without requiring SDK source changes. See the
+PocketClock is the second independent consumer and PocketBuddy is the third.
+They demonstrate that applications can reuse PocketSDK without requiring core
+SDK source changes. See the
 [hardware validation record](docs/HARDWARE_VALIDATION.md) for the tested
 behaviors. No existing Pocket application has been migrated; the current
 projects remain reference implementations and regression targets.

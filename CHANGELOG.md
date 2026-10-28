@@ -2,6 +2,52 @@
 
 All notable changes to PocketSDK are documented here.
 
+## Unreleased
+
+### Added
+
+- PocketBuddy documented as the third independent PocketSDK consumer
+- Dark Tower voice-client integration notes in `docs/POCKETBUDDY.md`
+- PocketBuddy's authenticated local WebUI and setup-hotspot validation notes
+- PocketBuddy v0.5 Wi-Fi QR setup and default-model picker notes
+- PocketBuddy v0.6 staged-setup and enlarged-QR validation notes
+- PocketBuddy v0.7 illustrated eye-pack integration notes
+- PocketBuddy v0.7.1 static randomized-thinking gaze notes
+
+### Architecture
+
+- Kept Wi-Fi, HTTP, microphone/speaker lifecycle, buddy protocol, and face UI
+  application-owned; one connected consumer is not enough evidence for a new
+  core networking or audio abstraction
+- Documented PocketBuddy's submit-and-poll pattern after live Dark Tower model
+  latency exceeded the ESP32's safe single-request window
+- Recorded the isolated Dark Tower deployment and the dedicated warm-model path;
+  these remain application behavior rather than PocketSDK core abstractions
+- Recorded the validated private Faster Whisper/Kokoro speech deployment and
+  warm end-to-end StickS3 voice-loop timing
+- Documented PocketBuddy's app-owned first-boot serial provisioning and merged
+  `0x0000` factory image; no credential policy was added to PocketSDK core
+- Recorded the first physical conversation findings and PocketBuddy's app-level
+  wrapped-text and M5Unified WAV-playback corrections
+- Documented bridge-side finalization of streaming WAV sizes required by the
+  embedded playback path
+- Recorded successful physical voice playback and the app-level speaker-volume
+  increase for the StickS3 enclosure
+- Validated maximum software volume on the physical StickS3 1 W speaker
+- Documented PocketBuddy's app-owned WebUI, captive setup hotspot, mDNS, and
+  write-only secret handling; one portal consumer is not enough evidence for a
+  PocketSDK core provisioning abstraction
+- Recorded physical WebUI loading, Save & Restart, and credential-retention
+  validation on the StickS3
+- Recorded the app-owned QR hotspot screen, `pocketbuddy` captive DNS name,
+  and authenticated chat-model discovery; these remain outside PocketSDK core
+  until another consumer proves the same requirements
+- Recorded the physical v0.5 save-gate finding and v0.6 separation of Wi-Fi and
+  AI-service readiness; staged provisioning remains application-owned
+- Recorded PocketBuddy's nine-state transparent eye pack, randomized blink, and
+  one randomly selected static gaze per thinking state as application-owned
+  presentation behavior
+
 ## PocketCheck 0.3.0 — 2026-10-23
 
 ### Added
