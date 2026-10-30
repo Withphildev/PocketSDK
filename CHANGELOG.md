@@ -6,6 +6,10 @@ All notable changes to PocketSDK are documented here.
 
 ### Added
 
+- Compact future-session source of truth in `docs/BUILD_CONTEXT.md`
+- PocketWirelessMic reference consumer with first-boot setup portal, 16 kHz
+  push-to-talk UDP audio, documented packet format, and Python WAV receiver
+- CI compilation for the PocketWirelessMic reference consumer
 - PocketBuddy documented as the third independent PocketSDK consumer
 - Dark Tower voice-client integration notes in `docs/POCKETBUDDY.md`
 - PocketBuddy's authenticated local WebUI and setup-hotspot validation notes
@@ -16,6 +20,12 @@ All notable changes to PocketSDK are documented here.
 
 ### Architecture
 
+- Kept wireless-mic Wi-Fi credentials, provisioning, UDP transport, and host
+  receiver application-owned while reusing PocketSDK initialization, buttons,
+  display, battery sampling, and namespaced settings
+- Recorded PocketWirelessMic as the second application demonstrating the
+  microphone/speaker exclusivity constraint; a core audio-session API remains
+  deferred until both consumers migrate to and physically validate one API
 - Kept Wi-Fi, HTTP, microphone/speaker lifecycle, buddy protocol, and face UI
   application-owned; one connected consumer is not enough evidence for a new
   core networking or audio abstraction

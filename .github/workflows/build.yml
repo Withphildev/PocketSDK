@@ -18,3 +18,5 @@ jobs:
         run: pio run -d examples/HardwareDiagnostic
       - name: Build PocketClock reuse example
         run: pio run -d examples/PocketClock
+      - name: Build PocketWirelessMic reference consumer
+        run: pio run -d examples/PocketWirelessMic

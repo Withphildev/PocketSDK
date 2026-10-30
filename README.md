@@ -20,10 +20,17 @@ It is not a game engine or an attempt to hide M5Unified.
 - Namespaced Preferences storage helper
 - Hardware diagnostic example
 - PocketClock example
+- PocketWirelessMic reference consumer and host receiver
 
 Networking, WebSockets, WebUI hosting, game systems, animation, and asset
 pipelines remain application-level concerns until a second proven use case
 shows that they belong in the SDK.
+
+For future Codex sessions, start with [`docs/BUILD_CONTEXT.md`](docs/BUILD_CONTEXT.md).
+It records stable hardware facts, repository boundaries, commands, and
+decisions that should not need to be rediscovered. The ready-to-build wireless
+microphone reference is in
+[`examples/PocketWirelessMic`](examples/PocketWirelessMic).
 
 PocketBuddy is the first connected voice-client consumer. It intentionally
 keeps Wi-Fi credentials, HTTP, recording policy, the Dark Tower protocol, and
@@ -49,8 +56,10 @@ void loop() {
 }
 ```
 
-See [`examples/HardwareDiagnostic`](examples/HardwareDiagnostic) and
-[`examples/PocketClock`](examples/PocketClock) for complete examples.
+See [`examples/HardwareDiagnostic`](examples/HardwareDiagnostic),
+[`examples/PocketClock`](examples/PocketClock), and
+[`examples/PocketWirelessMic`](examples/PocketWirelessMic) for complete
+examples and reference consumers.
 
 ## PocketCheck
 

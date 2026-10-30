@@ -1,6 +1,8 @@
 .pio/
 .vscode/
 .DS_Store
+__pycache__/
+recordings/
 *.bin
 *.elf
 *.map
